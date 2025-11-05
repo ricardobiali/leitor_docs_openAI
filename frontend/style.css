@@ -3,7 +3,7 @@ body {
 }
 .container {
     max-width: 700px;
-    margin-top: 60px;
+    margin-top: 25px;
     padding: 30px;
     background: white;
     border-radius: 15px;
@@ -13,8 +13,8 @@ body {
     transition: all 0.3s ease;
 }
 #avisosContainer ul li {
-    background-color: #fff3cd;
-    border: 1px solid #ffeeba;
+    background-color: transparent;
+    border: none;
     border-radius: 8px;
     padding: 10px 15px;
     margin-bottom: 8px;
@@ -51,6 +51,20 @@ body {
 #runBtn:hover {
     background-color: #23653a; /* tom mais escuro no hover */
     border-color: #23653a;
+}
+
+.fade-toggle {
+    transition: all 0.5s ease; /* suaviza mudanças */
+    overflow: hidden;
+    max-height: 1000px; /* valor grande o suficiente para elementos visíveis */
+    opacity: 1;
+}
+
+.fade-toggle.hidden {
+    max-height: 0;       /* "some" suavemente */
+    opacity: 0;          /* desaparece gradualmente */
+    padding: 0;          /* opcional: evita espaço residual */
+    margin: 0;
 }
 
 footer {

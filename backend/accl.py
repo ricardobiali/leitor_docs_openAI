@@ -7,16 +7,23 @@ import os
 import shutil
 from pdf2image import convert_from_path
 import pandas as pd
+import json
+from pathlib import Path
 
 # ============================================================
 # CONFIGURAÇÕES DE CLIENTE AZURE OPENAI
 # ============================================================
 
+BACKEND_DIR = Path(__file__).resolve().parent
+CONFIG_PATH = BACKEND_DIR / "config.ini"
+
 config = ConfigParser(interpolation=ExtendedInterpolation())
-config.read('config.ini', 'UTF-8')
+config.read(CONFIG_PATH, encoding="utf-8")
 
 # Cliente HTTP com certificado Petrobras
-http_client = httpx.Client(verify='petrobras-ca-root.pem')
+BACKEND_DIR = Path(__file__).resolve().parent
+PEM_PATH = BACKEND_DIR / "petrobras-ca-root.pem"
+http_client = httpx.Client(verify=str(PEM_PATH))
 
 client = AzureOpenAI(
     api_key=config['OPENAI']['OPENAI_API_KEY'],  
@@ -27,8 +34,31 @@ client = AzureOpenAI(
 
 MODEL_DEPLOYMENT_ID = 'gpt-4o-petrobras'
 
-print(http_client)
-print(client)
+# ============================================================
+# LER DIRETÓRIO DO ARQUIVO requests.json
+# ============================================================
+
+BASE_DIR = Path(__file__).resolve().parent.parent  # raiz do projeto
+FRONTEND_DIR = BASE_DIR / "frontend"
+REQUESTS_FILE = FRONTEND_DIR / "requests.json"
+
+# Lê o caminho da pasta informado pelo usuário
+if REQUESTS_FILE.exists():
+    with open(REQUESTS_FILE, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        diretorio_pdf = Path(data.get("diretorio", "")).resolve()
+else:
+    raise FileNotFoundError(f"Arquivo {REQUESTS_FILE} não encontrado.")
+
+if not diretorio_pdf.exists():
+    raise ValueError(f"O diretório informado não existe: {diretorio_pdf}")
+
+# Define diretório TEMP dentro do caminho do usuário
+diretorio_to_pdf = diretorio_pdf / "TEMP"
+os.makedirs(diretorio_to_pdf, exist_ok=True)
+
+# Define caminho do Poppler dinamicamente (relativo ao projeto)
+poppler_path = str(BASE_DIR / "poppler-0.68.0" / "bin")
 
 # ============================================================
 # FUNÇÃO PARA ENVIO DE MENSAGENS AO MODELO
@@ -50,13 +80,6 @@ def send_message(messages, engine, max_response_tokens=500):
 # PROCESSAMENTO DE ARQUIVOS PDF E IMAGENS
 # ============================================================
 
-diretorio_pdf = r"C:\Users\U33V\OneDrive - PETROBRAS\Desktop\python_old\docs_p_converter"
-diretorio_to_pdf = r"C:\Users\U33V\OneDrive - PETROBRAS\Desktop\python_old\docs_p_converter\TEMP"
-
-# Garante que o diretório de destino existe
-os.makedirs(diretorio_to_pdf, exist_ok=True)
-
-# Percorre os arquivos no diretório
 for arquivo in os.listdir(diretorio_pdf):
     print(arquivo)
     caminho_arquivo = os.path.join(diretorio_pdf, arquivo)
@@ -141,8 +164,9 @@ df["resposta"] = respostas
 # SALVA RESULTADOS
 # ============================================================
 
-df.to_csv("analise.csv", index=False)
-print("Arquivo analise.csv salvo com sucesso!")
+output_csv = BACKEND_DIR / "analise.csv"
+df.to_csv(output_csv, index=False, encoding="utf-8-sig")
+print(f"Arquivo analise.csv salvo com sucesso em: {output_csv}")
 
 # Exibe as respostas
 print(df["resposta"])

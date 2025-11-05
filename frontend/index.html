@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leitor de certificados e docs - ACCL</title>
+    <title>Leitor de documentos - ACCL</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
@@ -15,7 +15,7 @@
         <img src="media/logo.png" alt="Logo PACL" class="img-fluid">
     </div>
     <h3 class="mb-4 text-center titulo-app">
-        <i class="fa-solid me-2"></i>Leitor de certificados e docs - ACCL
+        <i class="fa-solid me-2"></i>Leitor de documentos - ACCL
     </h3>
 
     <!-- Caminhos de Rede -->
@@ -26,7 +26,9 @@
         <div class="mb-3">
             <label class="form-label">Diretório de documentos</label>
             <div class="input-group">
-                <span class="input-group-text"><i class="fa-solid fa-folder"></i></span>
+                <span id="folderIcon" class="input-group-text" style="cursor: pointer;">
+                    <i class="fa-solid fa-folder"></i>
+                </span>
                 <input id="pathInput" type="text" class="form-control" name="path1" placeholder="C:\Users\...">
             </div>
         </div>
@@ -40,7 +42,7 @@
     </div>
 
     <!-- Avisos Dinâmicos -->
-    <div id="avisosContainer" class="mt-4" style="display: none;">
+    <div id="avisosContainer" class="mt-4 fade-toggle hidden">
         <h6><i class="fa-solid fa-circle-info me-2"></i>Avisos</h6>
         <ul id="avisosContent" class="list-unstyled mb-0">
             <!-- Mensagens preenchidas via JavaScript -->
@@ -48,7 +50,7 @@
     </div>
 
     <!-- Botão Cancelar -->
-    <div id="cancelSection" class="mt-4 fade-toggle" style="display: none;">
+    <div id="cancelSection" class="mt-4 fade-toggle hidden">
         <button id="cancelBtn" type="button" class="btn btn-outline-danger w-100">
             <i class="fa-solid fa-stop"></i>Cancelar / Reiniciar
         </button>
@@ -59,7 +61,7 @@
     </footer>
 </div>
 
+<script type="text/javascript" src="/eel.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
