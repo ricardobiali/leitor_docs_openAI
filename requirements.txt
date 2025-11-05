@@ -1,0 +1,6 @@
+openai
+httpx
+numpy
+pdf2image
+pandas
+eel

@@ -1,0 +1,61 @@
+body {
+    background-color: #48444c;
+}
+.container {
+    max-width: 700px;
+    margin-top: 60px;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.fade-toggle {
+    transition: all 0.3s ease;
+}
+#avisosContainer ul li {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+}
+.btn i {
+    margin-right: 6px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    max-width: 700px;   /* ajusta o tamanho máximo do logo */
+    height: auto;       /* mantém a proporção */
+}
+
+.titulo-app {
+    color: #3d73a8;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+#runBtn {
+    background-color: #3d73a8; /* cor desejada */
+    border-color: #3d73a8;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#runBtn:hover {
+    background-color: #23653a; /* tom mais escuro no hover */
+    border-color: #23653a;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #888;
+    font-size: 0.9rem;
+}

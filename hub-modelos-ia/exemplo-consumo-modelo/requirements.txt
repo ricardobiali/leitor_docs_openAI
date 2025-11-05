@@ -1,0 +1,6 @@
+requests
+openai
+# para executar o "Python OpenAI.ipynb", utilize a versão abaixo:
+#openai==0.28.1
+python-dotenv
+numpy
