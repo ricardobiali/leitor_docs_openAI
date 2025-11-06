@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         avisosContent.innerHTML = `
             <li>
-                <div class="spinner-border text-primary me-2" role="status">
+                <div class="spinner-border spinner-border-sm text-primary me-2" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
                 Executando automação
