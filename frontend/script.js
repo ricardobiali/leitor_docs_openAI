@@ -34,10 +34,14 @@ document.addEventListener("DOMContentLoaded", () => {
         cancelSection.classList.remove("hidden");
 
         avisosContent.innerHTML = `
-            <li><i class="fa-solid fa-spinner fa-spin me-2"></i>
+            <li>
+                <div class="spinner-border text-primary me-2" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
                 Executando automação
             </li>
         `;
+
 
         try {
             await eel.atualizar_requests_json(path)();
